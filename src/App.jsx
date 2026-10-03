@@ -5,6 +5,7 @@ import fortnite from './assets/games/fortnite.jpg'
 
 function App() {
   const [selectedGame, setSelectedGame] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
 
   const games = [
     {
@@ -26,6 +27,10 @@ function App() {
       genre: 'Battle Royale',
     },
   ]
+  
+  const filteredGames = games.filter((game) =>
+  game.name.toLowerCase().includes(searchTerm.toLowerCase())
+)
 
   return (
     <div className="min-h-screen bg-[#080808] text-white">
@@ -90,9 +95,17 @@ function App() {
         <h2 className="mb-12 text-4xl font-bold md:text-5xl">
           FEATURED GAMES
         </h2>
-
+           <div className="mx-auto mb-10 max-w-md">
+       <input
+          type="text"
+          placeholder="Search for a game..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+         className="w-full rounded-lg border border-[#333] bg-[#151515] px-5 py-4 text-white outline-none transition placeholder:text-[#777] focus:border-[#00ff88]"/>
+       </div>
+        
         <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
-          {games.map((game) => (
+          {filteredGames.map((game) => (
             <div
               className="overflow-hidden rounded-lg border border-[#262626] bg-[#151515] text-left transition hover:-translate-y-2 hover:border-[#00ff88]"
               key={game.name}
