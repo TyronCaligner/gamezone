@@ -6,6 +6,15 @@ import fortnite from './assets/games/fortnite.jpg'
 function App() {
   const [selectedGame, setSelectedGame] = useState(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const [favorites, setFavorites] = useState([])
+
+  const toggleFavorite = (gameName) => {
+  setFavorites((currentFavorites) =>
+    currentFavorites.includes(gameName)
+      ? currentFavorites.filter((name) => name !== gameName)
+      : [...currentFavorites, gameName]
+  )
+}
 
   const games = [
     {
@@ -124,6 +133,11 @@ function App() {
                 <h3 className="my-2 text-2xl font-bold">
                   {game.name}
                 </h3>
+                <button
+                onClick={() => toggleFavorite(game.name)}
+                className="mb-3 text-xl transition hover:scale-110">
+                {favorites.includes(game.name) ? '❤️' : '🤍'}
+                </button>
 
                 <p className="mb-5 leading-6 text-[#999]">
                   {game.description}
